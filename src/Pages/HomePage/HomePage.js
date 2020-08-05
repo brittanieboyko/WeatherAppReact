@@ -8,13 +8,21 @@ class HomePage extends Component {
   state = {
     latitude: "",
     longitude: "",
+    temperature: ""
   };
+
+
+  convertToFahrenheit(temp) {
+    const tempInFahrenheit = ((temp-273.15)*1.8)+32;
+    this.setState({temperature: tempInFahrenheit.toFixed(0) })
+  }
 
   getWeather() {
     axios
       .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => {
-        console.log(res.data);
+        const temp = parseInt(res.data.current.temp);
+        this.convertToFahrenheit(temp);
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +76,7 @@ class HomePage extends Component {
     return (
       <>
         <Header />
-        <CurrentForecast />
+        <CurrentForecast temp={this.state.temperature} />
         <SearchBar />
       </>
     );

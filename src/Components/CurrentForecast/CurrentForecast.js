@@ -1,9 +1,10 @@
 import React from 'react';
 
-const CurrentForecast = () => {
+const CurrentForecast = (props) => {
+    console.log(props)
     return (
         <div>
-            81 degrees
+            {props.temp} degrees
         </div>
     )
 };
