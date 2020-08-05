@@ -4,7 +4,7 @@ const CurrentForecast = (props) => {
     console.log(props)
     return (
         <div>
-            {props.temp} degrees
+            {props.temperature} degrees
         </div>
     )
 };

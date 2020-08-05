@@ -21,6 +21,7 @@ class HomePage extends Component {
     axios
       .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => {
+        console.log(res.data)
         const temp = parseInt(res.data.current.temp);
         this.convertToFahrenheit(temp);
       })
@@ -76,7 +77,7 @@ class HomePage extends Component {
     return (
       <>
         <Header />
-        <CurrentForecast temp={this.state.temperature} />
+        <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
       </>
     );
