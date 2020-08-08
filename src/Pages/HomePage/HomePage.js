@@ -9,7 +9,8 @@ class HomePage extends Component {
   state = {
     latitude: "",
     longitude: "",
-    temperature: ""
+    temperature: "",
+    sevenDayForecast: ""
   };
 
 
@@ -23,6 +24,9 @@ class HomePage extends Component {
       .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => {
         console.log(res.data)
+        this.setState({
+          sevenDayForecast: res.data.daily
+        })
         const temp = parseInt(res.data.current.temp);
         this.convertToFahrenheit(temp);
       })
@@ -80,7 +84,7 @@ class HomePage extends Component {
         <Header />
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
-        <DailyForecastContainer />
+        <DailyForecastContainer sevenDayForecast={this.state.sevenDayForecast}/>
       </>
     );
   }
