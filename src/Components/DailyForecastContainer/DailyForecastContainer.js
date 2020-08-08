@@ -1,20 +1,16 @@
-import React from 'react';
-import DailyForecast from '../DailyForecast/DailyForecast';
+import React from "react";
+import DailyForecast from "../DailyForecast/DailyForecast";
 
 const DailyForecastContainer = (props) => {
-    console.log(props.sevenDayForecast);
-    const dailyForecasts = props.sevenDayForecast;
+  const dailyForecasts = props.sevenDayForecast;
 
-    return (
-        dailyForecasts ? (
-            dailyForecasts.map((forecast) => 
-                <DailyForecast key={Math.random() * 10} value={forecast}/>
-            )
-        ) : (
-        <p> weather not avail</p>
-        )
-        
-    )
+  return dailyForecasts ? (
+    dailyForecasts.map((forecast) => (
+      <DailyForecast key={Math.random() * 10} value={forecast} />
+    ))
+  ) : (
+    <p> weather not avail</p>
+  );
 };
 
 export default DailyForecastContainer;
