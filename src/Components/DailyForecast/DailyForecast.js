@@ -13,6 +13,9 @@ const DailyForecast = (props) => {
       <Card.Body>
         <Card.Title>Monday</Card.Title>
         <Card.Text>
+            {props.value.weather[0].description}
+        </Card.Text>
+        <Card.Text>
           temperature will be {temperatureInFahrenheit.toFixed(0)}
         </Card.Text>
       </Card.Body>
