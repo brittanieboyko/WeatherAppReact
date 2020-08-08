@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../../Components/Header/Header";
 import CurrentForecast from "../../Components/CurrentForecast/CurrentForecast";
 import SearchBar from "../../Components/SearchBar/SearchBar";
+import DailyForecastContainer from "../../Components/DailyForecastContainer/DailyForecastContainer";
 import axios from "axios";
 
 class HomePage extends Component {
@@ -79,6 +80,7 @@ class HomePage extends Component {
         <Header />
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
+        <DailyForecastContainer />
       </>
     );
   }
