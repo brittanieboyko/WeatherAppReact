@@ -3,7 +3,6 @@ import Header from "../../Components/Header/Header";
 import CurrentForecast from "../../Components/CurrentForecast/CurrentForecast";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import DailyForecastContainer from "../../Components/DailyForecastContainer/DailyForecastContainer";
-import Moment from 'react-moment';
 import axios from "axios";
 
 class HomePage extends Component {
@@ -80,11 +79,9 @@ class HomePage extends Component {
   }
 
   render() {
-    const dateToFormat = new Date();
     return (
       <>
         <Header />
-        <Moment format="dddd, MMM D">{dateToFormat}</Moment>
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
         <DailyForecastContainer sevenDayForecast={this.state.sevenDayForecast}/>
