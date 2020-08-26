@@ -14,7 +14,7 @@ const DailyForecast = (props) => {
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>
-          <Moment add={{ days: props.dayOfWeek }}>{todaysDate}</Moment>
+          <Moment add={{ days: props.dayOfWeek }} format="dddd">{todaysDate}</Moment>
         </Card.Title>
         <Card.Text>
             {props.value.weather[0].description}
