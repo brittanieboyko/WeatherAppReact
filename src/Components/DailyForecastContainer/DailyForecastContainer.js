@@ -6,7 +6,7 @@ const DailyForecastContainer = (props) => {
 
   return dailyForecasts ? (
     dailyForecasts.map((forecast) => (
-      <DailyForecast key={Math.random() * 10} value={forecast} />
+      <DailyForecast key={Math.random() * 10} value={forecast} dayOfWeek={dailyForecasts.indexOf(forecast)} />
     ))
   ) : (
     <p> weather not avail</p>
