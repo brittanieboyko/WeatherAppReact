@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Moment from 'react-moment';
+import "./style.css";
 
 const DailyForecast = (props) => {
   const convertToFahrenheit = (temp) => (temp - 273.15) * 1.8 + 32;
@@ -10,7 +11,7 @@ const DailyForecast = (props) => {
 
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={`http://openweathermap.org/img/wn/${props.value.weather[0].icon}@2x.png`}/>
+      <Card.Img variant="top" src={`http://openweathermap.org/img/wn/${props.value.weather[0].icon}@2x.png`} className="icon"/>
       <Card.Body>
         <Card.Title>
           <Moment add={{ days: props.dayOfWeek }} format="dddd">{todaysDate}</Moment>
