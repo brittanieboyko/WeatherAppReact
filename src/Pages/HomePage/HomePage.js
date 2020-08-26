@@ -23,7 +23,6 @@ class HomePage extends Component {
     axios
       .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`)
       .then((res) => {
-        console.log(res.data)
         this.setState({
           sevenDayForecast: res.data.daily
         })

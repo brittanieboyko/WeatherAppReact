@@ -4,14 +4,13 @@ import Moment from 'react-moment';
 
 const DailyForecast = (props) => {
   const convertToFahrenheit = (temp) => (temp - 273.15) * 1.8 + 32;
-  console.log("7dayforecast", props);
 
   const temperatureInFahrenheit = convertToFahrenheit(props.value.temp.day);
   const todaysDate = new Date();
 
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={`http://openweathermap.org/img/wn/${props.value.weather[0].icon}@2x.png`}/>
       <Card.Body>
         <Card.Title>
           <Moment add={{ days: props.dayOfWeek }} format="dddd">{todaysDate}</Moment>
