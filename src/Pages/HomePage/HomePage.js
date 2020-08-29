@@ -10,24 +10,42 @@ class HomePage extends Component {
     latitude: "",
     longitude: "",
     temperature: "",
-    sevenDayForecast: ""
+    sevenDayForecast: "",
   };
 
-
   convertToFahrenheit(temp) {
-    const tempInFahrenheit = ((temp-273.15)*1.8)+32;
-    this.setState({temperature: tempInFahrenheit.toFixed(0) })
+    const tempInFahrenheit = (temp - 273.15) * 1.8 + 32;
+    this.setState({ temperature: tempInFahrenheit.toFixed(0) });
+  }
+
+  getCityName() {
+    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude}%2C${this.state.longitude}&language=en&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+
+    axios
+      .get(requestUrl)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(requestUrl);
   }
 
   getWeather() {
     axios
-      .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`)
+      .get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`
+      )
       .then((res) => {
         this.setState({
-          sevenDayForecast: res.data.daily
-        })
+          sevenDayForecast: res.data.daily,
+        });
         const temp = parseInt(res.data.current.temp);
         this.convertToFahrenheit(temp);
+      })
+      .then(() => {
+        this.getCityName();
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +58,7 @@ class HomePage extends Component {
       longitude: position.coords.longitude,
     });
     this.getWeather();
-  };
+  }
 
   showError(error) {
     switch (error.code) {
@@ -71,7 +89,7 @@ class HomePage extends Component {
     } else {
       console.log("geolocation is not supported");
     }
-  };
+  }
 
   componentDidMount() {
     this.getUserLocation();
@@ -83,7 +101,9 @@ class HomePage extends Component {
         <Header />
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
-        <DailyForecastContainer sevenDayForecast={this.state.sevenDayForecast}/>
+        <DailyForecastContainer
+          sevenDayForecast={this.state.sevenDayForecast}
+        />
       </>
     );
   }
