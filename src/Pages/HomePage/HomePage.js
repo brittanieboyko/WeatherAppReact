@@ -11,25 +11,12 @@ class HomePage extends Component {
     longitude: "",
     temperature: "",
     sevenDayForecast: "",
+    cityName: "",
   };
 
   convertToFahrenheit(temp) {
     const tempInFahrenheit = (temp - 273.15) * 1.8 + 32;
     this.setState({ temperature: tempInFahrenheit.toFixed(0) });
-  }
-
-  getCityName() {
-    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude}%2C${this.state.longitude}&language=en&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
-
-    axios
-      .get(requestUrl)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(requestUrl);
   }
 
   getWeather() {
@@ -46,6 +33,21 @@ class HomePage extends Component {
       })
       .then(() => {
         this.getCityName();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  getCityName() {
+    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+
+    axios
+      .get(requestUrl)
+      .then((res) => {
+        this.setState({
+          cityName: res.data.results[0].address_components[3].long_name
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +100,7 @@ class HomePage extends Component {
   render() {
     return (
       <>
-        <Header />
+        <Header cityName={this.state.cityName}/>
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar />
         <DailyForecastContainer

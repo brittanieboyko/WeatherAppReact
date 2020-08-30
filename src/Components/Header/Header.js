@@ -1,11 +1,11 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-const Header = () => {
+const Header = (props) => {
     const dateToFormat = new Date();
     return (
         <>
-            <h1> Weather in Philadelphia</h1>
+            <h1> Weather in {props.cityName}</h1>
             <Moment format="dddd, MMM D">{dateToFormat}</Moment>
         </>
     )
