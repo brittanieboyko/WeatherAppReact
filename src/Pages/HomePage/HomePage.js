@@ -12,7 +12,18 @@ class HomePage extends Component {
     temperature: "",
     sevenDayForecast: "",
     cityName: "",
+    locationSearch: "",
   };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    alert("You are submitting " + this.state.locationSearch);
+  }
+
+  onChange = (e) => {
+    this.setState({locationSearch: e.target.value});
+  }
+
 
   convertToFahrenheit(temp) {
     const tempInFahrenheit = (temp - 273.15) * 1.8 + 32;
@@ -102,7 +113,7 @@ class HomePage extends Component {
       <>
         <Header cityName={this.state.cityName}/>
         <CurrentForecast temperature={this.state.temperature} />
-        <SearchBar />
+        <SearchBar onChange={this.onChange} onSubmit={this.onSubmit}/>
         <DailyForecastContainer
           sevenDayForecast={this.state.sevenDayForecast}
         />
