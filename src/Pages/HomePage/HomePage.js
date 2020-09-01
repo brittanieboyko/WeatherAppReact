@@ -30,16 +30,19 @@ class HomePage extends Component {
   }
 
   getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
+    console.log(url);
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude=minutely&appid=${process.env.REACT_APP_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
-        this.setState({
-          sevenDayForecast: res.data.daily,
-        });
-        const temp = parseInt(res.data.current.temp);
-        this.convertToFahrenheit(temp);
+        console.log("5dayforecast", res.data);
+        // this.setState({
+        //   sevenDayForecast: res.data.daily,
+        // });
+        // const temp = parseInt(res.data.current.temp);
+        // this.convertToFahrenheit(temp);
       })
       .then(() => {
         this.getCityName();
@@ -52,7 +55,7 @@ class HomePage extends Component {
   getWeatherFromSearch() {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.locationSearchTerm}&appid=${process.env.REACT_APP_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.locationSearchTerm}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
         console.log(res.data);
