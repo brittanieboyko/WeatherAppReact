@@ -24,11 +24,6 @@ class HomePage extends Component {
     this.setState({ locationSearchTerm: e.target.value });
   };
 
-  convertToFahrenheit(temp) {
-    const tempInFahrenheit = (temp - 273.15) * 1.8 + 32;
-    this.setState({ temperature: tempInFahrenheit.toFixed(0) });
-  }
-
   getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
     console.log(url);
@@ -41,8 +36,6 @@ class HomePage extends Component {
         // this.setState({
         //   sevenDayForecast: res.data.daily,
         // });
-        // const temp = parseInt(res.data.current.temp);
-        // this.convertToFahrenheit(temp);
       })
       .then(() => {
         this.getCityName();
