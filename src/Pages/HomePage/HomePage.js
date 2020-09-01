@@ -25,20 +25,18 @@ class HomePage extends Component {
   };
 
   getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
-    console.log(url);
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
+    console.log("url", url);
     axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
-      )
+      .get(url)
       .then((res) => {
         console.log("5dayforecast", res.data);
         this.setState({
-          currentCityName: res.data.city.name,
+          sevenDayForecast: res.data.daily,
         });
-        // this.setState({
-        //   sevenDayForecast: res.data.daily,
-        // });
+      })
+      .then(() => {
+        this.getCityName();
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +50,19 @@ class HomePage extends Component {
       )
       .then((res) => {
         console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  getCityName() {
+    axios
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+      .then((res) => {
+        this.setState({
+          currentCityName: res.data.results[0].address_components[3].long_name,
+        });
       })
       .catch((err) => {
         console.log(err);
