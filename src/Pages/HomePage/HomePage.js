@@ -33,12 +33,12 @@ class HomePage extends Component {
       )
       .then((res) => {
         console.log("5dayforecast", res.data);
+        this.setState({
+          currentCityName: res.data.city.name,
+        });
         // this.setState({
         //   sevenDayForecast: res.data.daily,
         // });
-      })
-      .then(() => {
-        this.getCityName();
       })
       .catch((err) => {
         console.log(err);
@@ -52,21 +52,6 @@ class HomePage extends Component {
       )
       .then((res) => {
         console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  getCityName() {
-    const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
-
-    axios
-      .get(requestUrl)
-      .then((res) => {
-        this.setState({
-          currentCityName: res.data.results[0].address_components[3].long_name,
-        });
       })
       .catch((err) => {
         console.log(err);
