@@ -11,19 +11,18 @@ class HomePage extends Component {
     longitude: "",
     temperature: "",
     sevenDayForecast: "",
-    cityName: "",
-    locationSearch: "",
+    currentCityName: "",
+    locationSearchTerm: "",
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    alert("You are submitting " + this.state.locationSearch);
-  }
+    this.getWeatherFromSearch();
+  };
 
   onChange = (e) => {
-    this.setState({locationSearch: e.target.value});
-  }
-
+    this.setState({ locationSearchTerm: e.target.value });
+  };
 
   convertToFahrenheit(temp) {
     const tempInFahrenheit = (temp - 273.15) * 1.8 + 32;
@@ -50,6 +49,19 @@ class HomePage extends Component {
       });
   }
 
+  getWeatherFromSearch() {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.locationSearchTerm}&appid=${process.env.REACT_APP_API_KEY}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   getCityName() {
     const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
 
@@ -57,7 +69,7 @@ class HomePage extends Component {
       .get(requestUrl)
       .then((res) => {
         this.setState({
-          cityName: res.data.results[0].address_components[3].long_name
+          currentCityName: res.data.results[0].address_components[3].long_name,
         });
       })
       .catch((err) => {
@@ -71,7 +83,7 @@ class HomePage extends Component {
       longitude: position.coords.longitude,
     });
     this.getWeather();
-  }
+  };
 
   showError(error) {
     switch (error.code) {
@@ -102,7 +114,7 @@ class HomePage extends Component {
     } else {
       console.log("geolocation is not supported");
     }
-  }
+  };
 
   componentDidMount() {
     this.getUserLocation();
@@ -111,9 +123,9 @@ class HomePage extends Component {
   render() {
     return (
       <>
-        <Header cityName={this.state.cityName}/>
+        <Header cityName={this.state.currentCityName} />
         <CurrentForecast temperature={this.state.temperature} />
-        <SearchBar onChange={this.onChange} onSubmit={this.onSubmit}/>
+        <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
         <DailyForecastContainer
           sevenDayForecast={this.state.sevenDayForecast}
         />
