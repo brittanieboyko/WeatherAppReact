@@ -74,6 +74,9 @@ class HomePage extends Component {
           temperature: res.data.current.temp.toFixed(0),
         });
       })
+      .then(() => {
+        this.getCityName();
+      })
       .catch((err) => {
         console.log(err);
       });
