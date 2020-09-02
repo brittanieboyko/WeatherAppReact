@@ -48,8 +48,10 @@ class HomePage extends Component {
         `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
+        console.log("initial weather",res.data)
         this.setState({
           sevenDayForecast: res.data.daily,
+          temperature: res.data.current.temp,
         });
       })
       .then(() => {
@@ -66,9 +68,10 @@ class HomePage extends Component {
         `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
-        console.log(res.data);
+        console.log("search results",res.data);
         this.setState({
           sevenDayForecast: res.data.daily,
+          temperature: res.data.current.temp,
         });
       })
       .catch((err) => {
