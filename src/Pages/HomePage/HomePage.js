@@ -17,20 +17,37 @@ class HomePage extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.getWeatherFromSearch();
+    this.getCityCoordinates();
   };
 
   onChange = (e) => {
     this.setState({ locationSearchTerm: e.target.value });
   };
 
-  getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`;
-    console.log("url", url);
+  getCityCoordinates = () => {
     axios
-      .get(url)
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.locationSearchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+      )
       .then((res) => {
-        console.log("5dayforecast", res.data);
+        console.log(res.data);
+        this.setState({
+          latitude: res.data.results[0].geometry.location.lat,
+          longitude: res.data.results[0].geometry.location.lng,
+        });
+        this.getWeatherFromSearch();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  getWeather() {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+      )
+      .then((res) => {
         this.setState({
           sevenDayForecast: res.data.daily,
         });
@@ -46,10 +63,13 @@ class HomePage extends Component {
   getWeatherFromSearch() {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.locationSearchTerm}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
         console.log(res.data);
+        this.setState({
+          sevenDayForecast: res.data.daily,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +78,9 @@ class HomePage extends Component {
 
   getCityName() {
     axios
-      .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+      )
       .then((res) => {
         this.setState({
           currentCityName: res.data.results[0].address_components[3].long_name,
@@ -118,9 +140,7 @@ class HomePage extends Component {
         <Header cityName={this.state.currentCityName} />
         <CurrentForecast temperature={this.state.temperature} />
         <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
-        <DailyForecastContainer
-          sevenDayForecast={this.state.sevenDayForecast}
-        />
+        <DailyForecastContainer sevenDayForecast={this.state.sevenDayForecast} />
       </>
     );
   }
