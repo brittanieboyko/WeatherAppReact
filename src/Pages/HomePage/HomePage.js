@@ -51,7 +51,7 @@ class HomePage extends Component {
         console.log("initial weather",res.data)
         this.setState({
           sevenDayForecast: res.data.daily,
-          temperature: res.data.current.temp,
+          temperature: res.data.current.temp.toFixed(0),
         });
       })
       .then(() => {
@@ -71,7 +71,7 @@ class HomePage extends Component {
         console.log("search results",res.data);
         this.setState({
           sevenDayForecast: res.data.daily,
-          temperature: res.data.current.temp,
+          temperature: res.data.current.temp.toFixed(0),
         });
       })
       .catch((err) => {
