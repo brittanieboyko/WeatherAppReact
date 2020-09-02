@@ -45,7 +45,7 @@ class HomePage extends Component {
   getWeather() {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
         console.log("initial weather",res.data)
@@ -65,7 +65,7 @@ class HomePage extends Component {
   getWeatherFromSearch() {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&exclude={minutely,hourly}&units=imperial&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
         console.log("search results",res.data);

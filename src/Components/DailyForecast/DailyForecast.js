@@ -4,9 +4,7 @@ import Moment from 'react-moment';
 import "./style.css";
 
 const DailyForecast = (props) => {
-  const convertToFahrenheit = (temp) => (temp - 273.15) * 1.8 + 32;
 
-  const temperatureInFahrenheit = convertToFahrenheit(props.value.temp.day);
   const todaysDate = new Date();
 
   return (
@@ -20,7 +18,7 @@ const DailyForecast = (props) => {
             {props.value.weather[0].description}
         </Card.Text>
         <Card.Text>
-          temperature will be {temperatureInFahrenheit.toFixed(0)}
+          temperature will be {props.value.temp.day.toFixed(0)}
         </Card.Text>
       </Card.Body>
     </Card>
