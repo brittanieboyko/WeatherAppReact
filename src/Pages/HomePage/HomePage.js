@@ -30,7 +30,6 @@ class HomePage extends Component {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.locationSearchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((res) => {
-        console.log(res.data);
         this.setState({
           latitude: res.data.results[0].geometry.location.lat,
           longitude: res.data.results[0].geometry.location.lng,
