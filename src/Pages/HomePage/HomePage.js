@@ -35,7 +35,7 @@ class HomePage extends Component {
           latitude: res.data.results[0].geometry.location.lat,
           longitude: res.data.results[0].geometry.location.lng,
         });
-        this.getWeatherFromSearch();
+        this.getWeather();
       })
       .catch((err) => {
         console.log(err);
@@ -48,27 +48,6 @@ class HomePage extends Component {
         `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
-        console.log("initial weather",res.data)
-        this.setState({
-          sevenDayForecast: res.data.daily,
-          temperature: res.data.current.temp.toFixed(0),
-        });
-      })
-      .then(() => {
-        this.getCityName();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  getWeatherFromSearch() {
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
-      )
-      .then((res) => {
-        console.log("search results",res.data);
         this.setState({
           sevenDayForecast: res.data.daily,
           temperature: res.data.current.temp.toFixed(0),
