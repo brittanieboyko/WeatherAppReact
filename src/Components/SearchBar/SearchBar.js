@@ -8,7 +8,7 @@ const SearchBar = (props) => {
     <>
       <InputGroup className="mb-3">
         <FormControl
-          placeholder="Enter a location"
+          placeholder="Enter a city"
           aria-label="Search a location"
           onChange={props.onChange}
         />
