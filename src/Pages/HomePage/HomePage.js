@@ -30,11 +30,16 @@ class HomePage extends Component {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.locationSearchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((res) => {
-        this.setState({
-          latitude: res.data.results[0].geometry.location.lat,
-          longitude: res.data.results[0].geometry.location.lng,
-        });
-        this.getWeather();
+        if (res.data.results >= 1) {
+          console.log(res);
+          this.setState({
+            latitude: res.data.results[0].geometry.location.lat,
+            longitude: res.data.results[0].geometry.location.lng,
+          });
+          this.getWeather();
+        } else {
+          console.log("nothing here")
+        }
       })
       .catch((err) => {
         console.log(err);
