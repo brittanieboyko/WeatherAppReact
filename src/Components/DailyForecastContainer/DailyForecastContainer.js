@@ -9,7 +9,7 @@ const DailyForecastContainer = (props) => {
       <DailyForecast key={Math.random() * 10} value={forecast} dayOfWeek={dailyForecasts.indexOf(forecast)} />
     ))
   ) : (
-    <p> weather not avail</p>
+    <p></p>
   );
 };
 
