@@ -1,10 +1,11 @@
 import React from 'react';
+import Container from "react-bootstrap/Container";
 
 const CurrentForecast = (props) => {
     return (
-        <div>
+        <Container>
             {props.temperature} degrees
-        </div>
+        </Container>
     )
 };
 

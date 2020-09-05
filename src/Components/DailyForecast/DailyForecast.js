@@ -8,7 +8,7 @@ const DailyForecast = (props) => {
   const todaysDate = new Date();
 
   return (
-    <Col sm={3}>
+    <Col sm={4}>
       <Card className="card">
         <Card.Img
           variant="top"

@@ -4,6 +4,7 @@
 }
 
 .card {
-    margin: .5rem 0rem;
     width: 18rem;
+    margin: .5rem -1rem;
+    
 }
