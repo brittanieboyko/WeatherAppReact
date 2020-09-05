@@ -8,8 +8,8 @@ const DailyForecast = (props) => {
   const todaysDate = new Date();
 
   return (
-    <Col sm={4}>
-      <Card style={{ width: "18rem" }}>
+    <Col sm={3}>
+      <Card className="card">
         <Card.Img
           variant="top"
           src={`http://openweathermap.org/img/wn/${props.value.weather[0].icon}@2x.png`}

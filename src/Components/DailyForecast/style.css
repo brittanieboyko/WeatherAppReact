@@ -2,3 +2,8 @@
     max-width: 50%;
     height: auto;
 }
+
+.card {
+    margin: .5rem 0rem;
+    width: 18rem;
+}
