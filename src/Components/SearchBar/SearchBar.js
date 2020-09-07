@@ -14,8 +14,11 @@ const SearchBar = (props) => {
           onChange={props.onChange}
         />
         <InputGroup.Append>
+          <Button variant="outline-secondary" onClick={props.onClick}>
+            Use My Current Location
+          </Button>
           <Button variant="outline-secondary" onClick={props.onSubmit}>
-            Search
+            Search For A City
           </Button>
         </InputGroup.Append>
       </InputGroup>

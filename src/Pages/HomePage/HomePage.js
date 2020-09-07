@@ -27,6 +27,11 @@ class HomePage extends Component {
     this.setState({ locationSearchTerm: e.target.value });
   };
 
+  onClick = (e) => {
+    e.preventDefault();
+    this.getUserLocation();
+  };
+
   getCityCoordinates = () => {
     axios
       .get(
@@ -40,7 +45,7 @@ class HomePage extends Component {
           });
           this.getWeather();
         } else {
-          console.log("nothing here")
+          console.log("nothing here");
         }
       })
       .catch((err) => {
@@ -121,17 +126,19 @@ class HomePage extends Component {
     }
   };
 
-  componentDidMount() {
-    this.getUserLocation();
-  }
-
   render() {
     return (
       <>
         <Header cityName={this.state.currentCityName} />
         <CurrentForecast temperature={this.state.temperature} />
-        <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
-        <DailyForecastContainer sevenDayForecast={this.state.sevenDayForecast} />
+        <SearchBar
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          onClick={this.onClick}
+        />
+        <DailyForecastContainer
+          sevenDayForecast={this.state.sevenDayForecast}
+        />
       </>
     );
   }
