@@ -15,6 +15,7 @@ class HomePage extends Component {
       sevenDayForecast: "",
       currentCityName: "",
       locationSearchTerm: "",
+      loading: false,
     };
   }
 
@@ -62,6 +63,7 @@ class HomePage extends Component {
         this.setState({
           sevenDayForecast: res.data.daily,
           temperature: res.data.current.temp.toFixed(0),
+          loading: false,
         });
       })
       .then(() => {
@@ -117,6 +119,7 @@ class HomePage extends Component {
 
   getUserLocation = () => {
     if (navigator.geolocation) {
+      this.setState({loading: true});
       navigator.geolocation.getCurrentPosition(
         this.showPosition,
         this.showError
@@ -135,6 +138,7 @@ class HomePage extends Component {
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           onClick={this.onClick}
+          loading={this.state.loading}
         />
         <DailyForecastContainer
           sevenDayForecast={this.state.sevenDayForecast}
