@@ -6,14 +6,17 @@ import DailyForecastContainer from "../../Components/DailyForecastContainer/Dail
 import axios from "axios";
 
 class HomePage extends Component {
-  state = {
-    latitude: "",
-    longitude: "",
-    temperature: "",
-    sevenDayForecast: "",
-    currentCityName: "",
-    locationSearchTerm: "",
-  };
+  constructor() {
+    super();
+    this.state = {
+      latitude: "",
+      longitude: "",
+      temperature: "",
+      sevenDayForecast: "",
+      currentCityName: "",
+      locationSearchTerm: "",
+    };
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
