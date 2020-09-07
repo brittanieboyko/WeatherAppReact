@@ -6,7 +6,7 @@ const Header = (props) => {
     const dateToFormat = new Date();
     return (
         <Container>
-            <h1> Weather in {props.cityName}</h1>
+            <h1> Weather {props.cityName}</h1>
             <Moment format="dddd, MMM D">{dateToFormat}</Moment>
         </Container>
     )
