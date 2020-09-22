@@ -1,6 +1,5 @@
 import React from "react";
 import DailyForecast from "../DailyForecast/DailyForecast";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import "./DailyForecastContainer.css";
 
