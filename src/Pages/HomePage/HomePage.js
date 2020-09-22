@@ -17,16 +17,16 @@ const HomePage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     getCityCoordinates();
-  }
+  };
 
   const onChange = (e) => {
-    setLocationSearchTerm(e.target.value)
-  }
+    setLocationSearchTerm(e.target.value);
+  };
 
   const onClick = (e) => {
     e.preventDefault();
     getUserLocation();
-  }
+  };
 
   const getCityCoordinates = () => {
     axios
@@ -45,7 +45,7 @@ const HomePage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   const getWeather = () => {
     axios
@@ -63,7 +63,7 @@ const HomePage = () => {
       .catch((err) => {
         console.log(err);
       });
-    }
+  };
 
   const getCityName = () => {
     axios
@@ -76,46 +76,41 @@ const HomePage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
-   const showPosition = (position) => {
-     console.log("position", position);
+  const showPosition = (position) => {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
-  }
+  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
       setLoading(true);
-      navigator.geolocation.getCurrentPosition(
-        showPosition,
-      );
+      navigator.geolocation.getCurrentPosition(showPosition);
     } else {
       console.log("geolocation is not supported");
     }
-  }
-    useEffect(() => {
-      if (longitude !== "") {
-        getWeather();
-      }
+  };
+  useEffect(() => {
+    if (longitude !== "") {
+      getWeather();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [longitude]);
+  }, [longitude]);
 
-    return (
-      <>
-        <Header cityName={currentCityName} />
-        <CurrentForecast temperature={temperature} />
-        <SearchBar
-          onChange={onChange}
-          onSubmit={onSubmit}
-          onClick={onClick}
-          loading={loading}
-        />
-        <DailyForecastContainer
-          sevenDayForecast={sevenDayForecast}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <Header cityName={currentCityName} />
+      <CurrentForecast temperature={temperature} />
+      <SearchBar
+        onChange={onChange}
+        onSubmit={onSubmit}
+        onClick={onClick}
+        loading={loading}
+      />
+      <DailyForecastContainer sevenDayForecast={sevenDayForecast} />
+    </>
+  );
+};
 
 export default HomePage;
