@@ -2,12 +2,13 @@ import React from "react";
 import DailyForecast from "../DailyForecast/DailyForecast";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import "./DailyForecastContainer.css";
 
 const DailyForecastContainer = (props) => {
   const dailyForecasts = props.sevenDayForecast;
 
   return (
-    <Container>
+    <div className="forecast-container">
       <Row>
         {dailyForecasts ? (
           dailyForecasts.map((forecast) => (
@@ -21,7 +22,7 @@ const DailyForecastContainer = (props) => {
           <p></p>
         )}
       </Row>
-    </Container>
+    </div>
   );
 };
 export default DailyForecastContainer;
