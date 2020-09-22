@@ -22,7 +22,7 @@ const DailyForecast = (props) => {
             </Moment>
           </Card.Title>
           <Card.Text>
-            {props.value.temp.day.toFixed(0)} &deg;
+            {props.value.temp.max.toFixed(0)} &deg;
           </Card.Text>
           <Card.Text>{props.value.weather[0].description}</Card.Text>
         </Card.Body>
