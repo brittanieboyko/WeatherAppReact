@@ -1,52 +1,45 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import CurrentForecast from "../../Components/CurrentForecast/CurrentForecast";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import DailyForecastContainer from "../../Components/DailyForecastContainer/DailyForecastContainer";
 import axios from "axios";
 
-class HomePage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      latitude: "",
-      longitude: "",
-      temperature: "",
-      sevenDayForecast: "",
-      currentCityName: "",
-      locationSearchTerm: "",
-      loading: false,
-    }
-  }
+const HomePage = () => {
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [temperature, setTemperature] = useState("");
+  const [sevenDayForecast, setSevenDayForecast] = useState("");
+  const [currentCityName, setCurrentCityName] = useState("");
+  const [locationSearchTerm, setLocationSearchTerm] = useState("");
+  const [loading, setLoading] = useState("");
 
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.getCityCoordinates();
+    getCityCoordinates();
   }
 
-  onChange = (e) => {
-    this.setState({ locationSearchTerm: e.target.value });
+  const onChange = (e) => {
+    setLocationSearchTerm(e.target.value)
   }
 
-  onClick = (e) => {
+  const onClick = (e) => {
     e.preventDefault();
-    this.getUserLocation();
+    getUserLocation();
   }
 
-  getCityCoordinates = () => {
+  const getCityCoordinates = () => {
     axios
       .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.locationSearchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${locationSearchTerm}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((res) => {
         if (res.data.results.length >= 1) {
-          this.setState({
-            latitude: res.data.results[0].geometry.location.lat,
-            longitude: res.data.results[0].geometry.location.lng,
-          });
-          this.getWeather();
+          setLatitude(res.data.results[0].geometry.location.lat);
+          setLongitude(res.data.results[0].geometry.location.lng);
+          getWeather();
         } else {
-          console.log("nothing here");
+          console.log("no results");
         }
       })
       .catch((err) => {
@@ -54,77 +47,75 @@ class HomePage extends Component {
       });
   }
 
-  getWeather() {
+  const getWeather = () => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude={minutely,hourly}&appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`
       )
       .then((res) => {
-        this.setState({
-          sevenDayForecast: res.data.daily,
-          temperature: res.data.current.temp.toFixed(0),
-          loading: false,
-        });
+        setSevenDayForecast(res.data.daily);
+        setTemperature(res.data.current.temp.toFixed(0));
+        setLoading(false);
       })
       .then(() => {
-        this.getCityName();
+        getCityName();
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+    }
 
-  getCityName() {
+  const getCityName = () => {
     axios
       .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.latitude},${this.state.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((res) => {
-        this.setState({
-          currentCityName: res.data.results[0].address_components[3].long_name,
-        });
+        setCurrentCityName(res.data.results[0].address_components[3].long_name);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  showPosition = (position) => {
-    this.setState({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
-    this.getWeather();
+   const showPosition = (position) => {
+     console.log("position", position);
+    setLatitude(position.coords.latitude);
+    setLongitude(position.coords.longitude);
   }
 
-  getUserLocation = () => {
+  const getUserLocation = () => {
     if (navigator.geolocation) {
-      this.setState({ loading: true });
+      setLoading(true);
       navigator.geolocation.getCurrentPosition(
-        this.showPosition,
+        showPosition,
       );
     } else {
       console.log("geolocation is not supported");
     }
   }
+    useEffect(() => {
+      if (longitude !== "") {
+        getWeather();
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [longitude]);
 
-  render() {
     return (
       <>
-        <Header cityName={this.state.currentCityName} />
-        <CurrentForecast temperature={this.state.temperature} />
+        <Header cityName={currentCityName} />
+        <CurrentForecast temperature={temperature} />
         <SearchBar
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          onClick={this.onClick}
-          loading={this.state.loading}
+          onChange={onChange}
+          onSubmit={onSubmit}
+          onClick={onClick}
+          loading={loading}
         />
         <DailyForecastContainer
-          sevenDayForecast={this.state.sevenDayForecast}
+          sevenDayForecast={sevenDayForecast}
         />
       </>
     );
   }
-}
 
 export default HomePage;
