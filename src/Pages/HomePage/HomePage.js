@@ -16,22 +16,22 @@ class HomePage extends Component {
       currentCityName: "",
       locationSearchTerm: "",
       loading: false,
-    };
+    }
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     this.getCityCoordinates();
-  };
+  }
 
   onChange = (e) => {
     this.setState({ locationSearchTerm: e.target.value });
-  };
+  }
 
   onClick = (e) => {
     e.preventDefault();
     this.getUserLocation();
-  };
+  }
 
   getCityCoordinates = () => {
     axios
@@ -52,7 +52,7 @@ class HomePage extends Component {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
 
   getWeather() {
     axios
@@ -95,39 +95,18 @@ class HomePage extends Component {
       longitude: position.coords.longitude,
     });
     this.getWeather();
-  };
-
-  showError(error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert("Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        alert("The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        alert("An unknown error occurred.");
-        break;
-      default:
-        alert("Very Curious");
-        break;
-    }
   }
 
   getUserLocation = () => {
     if (navigator.geolocation) {
-      this.setState({loading: true});
+      this.setState({ loading: true });
       navigator.geolocation.getCurrentPosition(
         this.showPosition,
-        this.showError
       );
     } else {
       console.log("geolocation is not supported");
     }
-  };
+  }
 
   render() {
     return (
