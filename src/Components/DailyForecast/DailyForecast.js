@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Moment from "react-moment";
-import "./style.css";
+import "./DailyForecast.css";
 
 const DailyForecast = (props) => {
   const todaysDate = new Date();
