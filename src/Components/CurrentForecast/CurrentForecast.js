@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 const CurrentForecast = (props) => {
   return (
     <Container>
-      {props.temperature ? <h2>Curently {props.temperature} degrees </h2> : <h2> </h2>}
+      {props.temperature ? <h2>Currently {props.temperature} degrees </h2> : <h2> </h2>}
     </Container>
   );
 };
