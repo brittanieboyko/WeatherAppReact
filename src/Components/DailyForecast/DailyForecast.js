@@ -21,10 +21,10 @@ const DailyForecast = (props) => {
               {todaysDate}
             </Moment>
           </Card.Title>
-          <Card.Text>{props.value.weather[0].description}</Card.Text>
           <Card.Text>
-            temperature will be {props.value.temp.day.toFixed(0)}
+            {props.value.temp.day.toFixed(0)} &deg;
           </Card.Text>
+          <Card.Text>{props.value.weather[0].description}</Card.Text>
         </Card.Body>
       </Card>
     </Col>
