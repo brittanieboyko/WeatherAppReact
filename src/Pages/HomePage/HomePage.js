@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
-import CurrentForecast from "../../Components/CurrentForecast/CurrentForecast";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import DailyForecastContainer from "../../Components/DailyForecastContainer/DailyForecastContainer";
 import axios from "axios";
@@ -100,8 +99,9 @@ const HomePage = () => {
 
   return (
     <>
-      <Header cityName={currentCityName} />
-      <CurrentForecast temperature={temperature} />
+      <Header
+        cityName={currentCityName}
+        temperature={temperature}/>
       <SearchBar
         onChange={onChange}
         onSubmit={onSubmit}
