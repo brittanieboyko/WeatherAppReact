@@ -7,8 +7,8 @@ const Header = (props) => {
     <Jumbotron>
       {props.cityName ? (
         <>
-        <h1> Weather in {props.cityName}</h1>
-        <CurrentForecast temperature={props.temperature} />
+          <h1> Weather in {props.cityName}</h1>
+          <CurrentForecast temperature={props.temperature} />
         </>
       ) : (
         <h1>Weather</h1>

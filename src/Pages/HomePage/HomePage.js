@@ -99,9 +99,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Header
-        cityName={currentCityName}
-        temperature={temperature}/>
+      <Header cityName={currentCityName} temperature={temperature} />
       <SearchBar
         onChange={onChange}
         onSubmit={onSubmit}
