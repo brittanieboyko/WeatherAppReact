@@ -23,8 +23,7 @@ const HomePage = () => {
     setLocationSearchTerm(e.target.value);
   };
 
-  const onClick = (e) => {
-    e.preventDefault();
+  const onClick = () => {
     getUserLocation();
   };
 
@@ -101,13 +100,8 @@ const HomePage = () => {
   return (
     <>
       <Header cityName={currentCityName} temperature={temperature} />
-      <GetLocationModal/>
-      <SearchBar
-        onChange={onChange}
-        onSubmit={onSubmit}
-        onClick={onClick}
-        loading={loading}
-      />
+      <GetLocationModal onClick={onClick} loading={loading} />
+      <SearchBar onChange={onChange} onSubmit={onSubmit} />
       <DailyForecastContainer sevenDayForecast={sevenDayForecast} />
     </>
   );
