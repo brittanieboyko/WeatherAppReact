@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import DailyForecastContainer from "../../Components/DailyForecastContainer/DailyForecastContainer";
-import GetLocationModal from "../../Components/GetLocationModal/GetLocationModal";
 import axios from "axios";
 
 const HomePage = () => {
@@ -99,8 +98,12 @@ const HomePage = () => {
 
   return (
     <>
-      <Header cityName={currentCityName} temperature={temperature} />
-      <GetLocationModal onClick={onClick} loading={loading} />
+      <Header
+        cityName={currentCityName}
+        temperature={temperature}
+        onClick={onClick}
+        loading={loading}
+      />
       <SearchBar onChange={onChange} onSubmit={onSubmit} />
       <DailyForecastContainer sevenDayForecast={sevenDayForecast} />
     </>
