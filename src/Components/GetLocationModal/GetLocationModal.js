@@ -43,7 +43,7 @@ const GetLocationModal = (props) => {
             Yes, Use My Location
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            No
+            No, I'll search for a city instead
           </Button>
         </Modal.Footer>
       </Modal>
