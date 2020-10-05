@@ -2,3 +2,7 @@
     max-width: 50%;
     height: auto;
 }
+
+.weather-card {
+    margin-bottom: 3em;
+}
