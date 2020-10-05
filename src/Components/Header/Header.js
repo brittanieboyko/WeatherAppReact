@@ -26,10 +26,10 @@ const Header = (props) => {
         </Container>
       ) : (
         <div>
-          <h1>Weather</h1>
-          <p>
+          <h1 className="header">Weather</h1>
+          <div>
             <GetLocationModal onClick={props.onClick} loading={props.loading} />
-          </p>
+          </div>
         </div>
       )}
     </Jumbotron>
