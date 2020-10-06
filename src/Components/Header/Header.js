@@ -13,14 +13,14 @@ const Header = (props) => {
       {props.cityName ? (
         <Container>
           <Row>
-            <h1>
+            <h1 className="header">
               {" "}
               It's currently {props.temperature} &deg; in {props.cityName}
             </h1>
           </Row>
           <Row>
             <h2>
-              <Moment format="dddd, MMM D">{dateToFormat}</Moment>{" "}
+              <Moment format="dddd, MMM D" className="header">{dateToFormat}</Moment>{" "}
             </h2>
           </Row>
         </Container>
